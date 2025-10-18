@@ -23,7 +23,7 @@ export default async function Footer() {
         {/* Branding & App Info */}
         <div className="space-y-3 text-center md:text-left">
           <Link href="/" className="flex items-center justify-center md:justify-start gap-3">
-            <LogoSquare size="md" />
+            <LogoSquare size="sm" />
             <span className="text-2xl font-bold tracking-tighter text-primary">Redevs Commerce</span>
           </Link>
           <p className="text-sm leading-relaxed">
