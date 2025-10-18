@@ -1,69 +1,94 @@
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import LogoSquare from "components/logo-square";
+import { ThemeToggle } from "components/theme-toggle";
+import { getMenu } from "lib/shopify";
+import Link from "next/link";
+import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
 
-import FooterMenu from 'components/layout/footer-menu';
-import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
-import { Suspense } from 'react';
-
+// Keep constants dynamic & robust
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const skeleton = 'w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
-  const copyrightName = COMPANY_NAME || SITE_NAME || '';
+  const copyrightDate =
+    2025 + (currentYear > 2025 ? `-${currentYear}` : "");
+  const menu = await getMenu("next-js-frontend-footer-menu");
+  const copyright = COMPANY_NAME || SITE_NAME || "";
 
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
+    <footer className="relative mt-12 border-t border-border bg-gradient-to-br from-muted/50 to-background text-muted-foreground">
+      <div className="container grid grid-cols-1 gap-8 py-12 md:grid-cols-4 max-w-7xl mx-auto">
+        {/* Branding & App Info */}
+        <div className="space-y-3 text-center md:text-left">
+          <Link href="/" className="flex items-center justify-center md:justify-start gap-3">
+            <LogoSquare size="md" />
+            <span className="text-2xl font-bold tracking-tighter text-primary">Redevs Commerce</span>
           </Link>
+          <p className="text-sm leading-relaxed">
+            Elevate your shopping experience.<br />Exclusive products, secure payments, trusted support.
+          </p>
+          <div className="flex justify-center md:justify-start gap-3 pt-2">
+            <a aria-label="Facebook" target="_blank" href="https://facebook.com" className="hover:text-primary">
+              <FaFacebook size={20} />
+            </a>
+            <a aria-label="Instagram" target="_blank" href="https://instagram.com" className="hover:text-primary">
+              <FaInstagram size={20} />
+            </a>
+            <a aria-label="X" target="_blank" href="https://x.com" className="hover:text-primary">
+              <FaXTwitter size={20} />
+            </a>
+            <a aria-label="YouTube" target="_blank" href="https://youtube.com" className="hover:text-primary">
+              <FaYoutube size={20} />
+            </a>
+          </div>
         </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-            </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
+
+        {/* Navigation Columns (just illustrative, update with real links) */}
+        <div className="text-center md:text-left">
+          <h4 className="mb-3 font-semibold text-primary">Shop</h4>
+          <ul className="space-y-2">
+            <li><Link href="/collections/new" className="hover:underline">New Arrivals</Link></li>
+            <li><Link href="/collections/bestsellers" className="hover:underline">Best Sellers</Link></li>
+            <li><Link href="/collections/sale" className="hover:underline">On Sale</Link></li>
+            <li><Link href="/collections/all" className="hover:underline">All Products</Link></li>
+          </ul>
+        </div>
+        <div className="text-center md:text-left">
+          <h4 className="mb-3 font-semibold text-primary">Customer Care</h4>
+          <ul className="space-y-2">
+            <li><Link href="/help/contact" className="hover:underline">Contact Us</Link></li>
+            <li><Link href="/help/shipping" className="hover:underline">Shipping</Link></li>
+            <li><Link href="/help/returns" className="hover:underline">Returns & Refunds</Link></li>
+            <li><Link href="/help/faq" className="hover:underline">FAQ</Link></li>
+          </ul>
+        </div>
+        {/* Newsletter Signup */}
+        <div className="text-center md:text-left">
+          <h4 className="mb-3 font-semibold text-primary">Stay Updated</h4>
+          <form className="flex flex-col gap-2">
+            <Input
+              type="email"
+              placeholder="Enter your email"
+              className="bg-background rounded"
+              required
+            />
+            <Button size="sm" type="submit" className="w-fit mx-auto md:mx-0">Subscribe</Button>
+            <span className="text-xs text-muted-foreground">Get special offers & updates. No spam. Unsubscribe anytime.</span>
+          </form>
         </div>
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
-            </a>
-          </p>
+
+      <Separator />
+      <div className="container flex flex-col items-center justify-between gap-3 py-6 md:flex-row max-w-7xl mx-auto">
+        <p className="text-xs text-center md:text-left">
+          © {copyrightDate} {copyright && <>{copyright}.</>} All rights reserved.
+        </p>
+        <div className="flex items-center gap-4">
+          <Link href="/privacy" className="text-xs underline transition hover:text-primary">Privacy Policy</Link>
+          <Link href="/terms" className="text-xs underline transition hover:text-primary">Terms of Service</Link>
+          <ThemeToggle />
         </div>
       </div>
     </footer>
