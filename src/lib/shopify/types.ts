@@ -88,6 +88,7 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  compareAtPrice?: Money | null; // add this
 };
 
 export type SEO = {
@@ -113,6 +114,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
+  image?: Image; // Add this line
 };
 
 export type ShopifyProduct = {

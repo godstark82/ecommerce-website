@@ -1,6 +1,5 @@
 import imageFragment from './image';
 import seoFragment from './seo';
-
 const productFragment = /* GraphQL */ `
   fragment product on Product {
     id
@@ -35,6 +34,10 @@ const productFragment = /* GraphQL */ `
             value
           }
           price {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
             amount
             currencyCode
           }
