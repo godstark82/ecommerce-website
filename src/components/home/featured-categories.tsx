@@ -1,85 +1,40 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { getCollections } from '@/lib/shopify';
-import Image from "next/image";
+import { getCollections } from "@/lib/shopify";
+import { Collection } from "@/lib/shopify/types";
 import Link from "next/link";
+import { CollectionCard } from "../collection/collection-card";
 
 export default async function FeaturedCategories() {
   const collections = await getCollections();
 
-  // Filter out the "All" collection and limit to 6 collections
   const featuredCollections = collections
-    .filter((collection) => collection.handle !== '')
+    .filter((collection) => collection.handle !== "" && !collection.title.includes('homepage-'))
     .slice(0, 6);
 
   return (
-    <section className="py-16 md:py-20 bg-background" aria-label="Featured Categories">
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+    <section className="py-8 md:py-12 bg-background" aria-label="Featured Categories">
+      <div className="container mx-auto px-4 max-w-6xl">
+        {/* Compact Section Header */}
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
             Shop by Category
           </h2>
-          <p className="text-muted-foreground text-base md:text-lg max-w-2xl mx-auto">
-            Explore our carefully curated collections across various categories
+          <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
+            Explore our curated collections
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-          {featuredCollections.map((collection: any) => (
-            <Link
-              key={collection.handle}
-              href={collection.path}
-              className="group"
-              aria-label={`Browse ${collection.title} category`}
-            >
-              <Card className="overflow-hidden border border-border hover:shadow-lg transition-all duration-300 group-hover:border-primary/20">
-                <CardContent className="p-0">
-                  {/* Category Image */}
-                  <div className="relative aspect-square overflow-hidden">
-                    {collection?.image ? (
-                      <Image
-                        src={collection.image.url}
-                        alt={collection.image.altText || `${collection.title} collection`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"
-                        loading="lazy"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-muted flex items-center justify-center">
-                        <span className="text-muted-foreground text-sm">
-                          {collection.title}
-                        </span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-300" />
-                  </div>
-
-                  {/* Category Info */}
-                  <div className="p-3 md:p-4 text-center">
-                    <h3 className="font-semibold text-sm md:text-base text-primary mb-1">
-                      {collection.title}
-                    </h3>
-                    {collection.description && (
-                      <p className="text-xs md:text-sm text-muted-foreground mb-2 line-clamp-2">
-                        {collection.description}
-                      </p>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
+        {/* Compact Categories Grid */}
+        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 justify-items-center">
+          {featuredCollections.map((collection: Collection) => (
+            <CollectionCard key={collection.handle} collection={collection} />
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-10">
-          <Button asChild variant="outline" size="lg">
-            <Link href="/search">
-              View All Categories
-            </Link>
+        {/* Compact View All Button */}
+        <div className="text-center mt-6">
+          <Button asChild variant="outline">
+            <Link href="/search">View All</Link>
           </Button>
         </div>
       </div>

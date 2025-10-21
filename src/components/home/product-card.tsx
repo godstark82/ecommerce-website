@@ -17,27 +17,20 @@ interface ProductCardProps {
   // Optional customization props
   showRank?: boolean;
   rank?: number;
-  showType?: boolean;
-  type?: 'trending' | 'bestseller';
-  showRating?: boolean;
-  rating?: number;
-  showSalesCount?: boolean;
-  salesCount?: number;
+  // showType?: boolean;
+  // type?: 'trending' | 'bestseller';
+  // showRating?: boolean;
+  // rating?: number;
+  // showSalesCount?: boolean;
+  // salesCount?: number;
   variant?: 'default' | 'compact' | 'featured';
   className?: string;
 }
 
-export default function ProductCard({ 
+export default function ProductCard({
   product,
   showRank = false,
   rank,
-  showType = false,
-  type,
-  showRating = false,
-  rating = 4.5,
-  showSalesCount = false,
-  salesCount,
-  variant = 'default',
   className
 }: ProductCardProps) {
   const { addCartItem } = useCart();
@@ -69,30 +62,29 @@ export default function ProductCard({
   const hasDiscount =
     defaultVariant?.compareAtPrice &&
     parseFloat(defaultVariant.compareAtPrice.amount) >
-      parseFloat(defaultVariant.price.amount);
+    parseFloat(defaultVariant.price.amount);
 
   const discountPercentage =
     hasDiscount && defaultVariant.compareAtPrice?.amount
       ? Math.round(
-          ((parseFloat(defaultVariant.compareAtPrice.amount) -
-            parseFloat(defaultVariant.price.amount)) /
-            parseFloat(defaultVariant.compareAtPrice.amount)) *
-            100
-        )
+        ((parseFloat(defaultVariant.compareAtPrice.amount) -
+          parseFloat(defaultVariant.price.amount)) /
+          parseFloat(defaultVariant.compareAtPrice.amount)) *
+        100
+      )
       : 0;
 
   return (
     <Card className={cn(
       "group overflow-hidden border border-border hover:shadow-lg transition-all duration-300 hover:-translate-y-1 rounded-2xl",
-      variant === 'compact' && "hover:shadow-md hover:-translate-y-0.5",
-      variant === 'featured' && "hover:shadow-xl hover:-translate-y-2",
+      "hover:shadow-xl hover:-translate-y-2",
       className
     )}>
       <CardContent className="p-0">
         {/* IMAGE WRAPPER */}
         <div className={cn(
           "relative bg-muted overflow-hidden rounded-t-2xl",
-          variant === 'compact' ? "aspect-square" : "aspect-[4/5]"
+          "aspect-[4/5]"
         )}>
           {!isImageLoaded && (
             <div className="absolute inset-0 animate-pulse bg-muted-foreground/10" />
@@ -131,7 +123,7 @@ export default function ProductCard({
                 #{rank}
               </Badge>
             )}
-            
+
             {/* New Badge */}
             {product.tags.includes("new") && (
               <Badge
@@ -141,7 +133,7 @@ export default function ProductCard({
                 New
               </Badge>
             )}
-            
+
             {/* Discount Badge */}
             {hasDiscount && (
               <Badge variant="destructive" className="backdrop-blur-sm">
@@ -151,8 +143,8 @@ export default function ProductCard({
           </div>
 
           {/* RIGHT BADGES (Type Badge) */}
-          <div className="absolute top-3 right-3 flex flex-col gap-2">
-            {/* Type Badge */}
+          {/* <div className="absolute top-3 right-3 flex flex-col gap-2">
+           
             {showType && type && (
               <Badge variant="secondary" className="text-xs backdrop-blur-sm">
                 {type === 'trending' ? (
@@ -162,11 +154,11 @@ export default function ProductCard({
                 )}
               </Badge>
             )}
-          </div>
+          </div> */}
 
           {/* QUICK ACTIONS */}
           <div className="absolute top-3 right-3 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            style={{ marginRight: showType && type ? '100px' : '0' }}>
+          >
             <Button
               size="icon"
               variant="secondary"
@@ -204,7 +196,7 @@ export default function ProductCard({
         {/* PRODUCT DETAILS */}
         <div className={cn(
           "space-y-3",
-          variant === 'compact' ? "p-3" : "p-4"
+          "p-4"
         )}>
           {/* Category Badge */}
           {product.tags.length > 0 && (
@@ -231,28 +223,12 @@ export default function ProductCard({
                 </span>
               )}
             </div>
-            
-            {/* Rating */}
-            {showRating && (
-              <div className="flex items-center gap-1">
-                <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm text-muted-foreground">
-                  {rating}
-                </span>
-              </div>
-            )}
-          </div>
 
-          {/* Sales Count */}
-          {showSalesCount && salesCount && (
-            <div className="text-xs text-muted-foreground">
-              {salesCount.toLocaleString()} sold
-            </div>
-          )}
+          </div>
 
           <Button
             className="w-full rounded-lg"
-            size={variant === 'compact' ? "sm" : "sm"}
+            size={"sm"}
             onClick={handleAddToCart}
             disabled={!product.availableForSale || isLoading}
           >

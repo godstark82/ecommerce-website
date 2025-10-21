@@ -1,3 +1,4 @@
+import CollectionShowcase from '@/components/home/collection-showcase/collection-showcase';
 import FeaturedCategories from '@/components/home/featured-categories';
 import FeaturedProducts from '@/components/home/featured-products';
 import HeroSection from '@/components/home/hero';
@@ -16,16 +17,21 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* <ThreeItemGrid /> */}
-      {/* <Carousel /> */}
-      {/* <Footer /> */}
       <HeroSection />
       <FeaturedCategories />
       <FeaturedProducts />
+      <CollectionShowcase />
       <NewArrivals />
+      {/* <BrandStory /> Builds trust */}
       <TrendingBestSellers />
+      {/* <TestimonialsCarousel /> Social proof */}
+      {/* <ProductFinder /> Interactive engagement */}
+      {/* <BlogPreview /> Content marketing */}
+      {/* <PersonalizedRecommendations /> AI-powered */}
+      {/* <GiftGuides /> Seasonal relevance */}
+      {/* <SocialProof /> UGC */}
+      {/* <ValuePropositions /> Trust signals */}
       <NewsletterCTA />
-
     </>
   );
 }

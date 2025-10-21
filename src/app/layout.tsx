@@ -35,16 +35,18 @@ export default async function RootLayout({
     <html lang="en" className={GeistSans.variable}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <CartProvider cartPromise={cart}>
-            <Navbar />
-            {/* <StoreHeader /> */}
-            <main>
-              {children}
-              <Toaster closeButton />
-              {/* <WelcomeToast /> */}
-            </main>
-            <Footer />
-          </CartProvider>
+          {/* <ShopifyAuthProvider> */}
+            <CartProvider cartPromise={cart}>
+              <Navbar />
+              {/* <StoreHeader /> */}
+              <main>
+                {children}
+                <Toaster closeButton />
+                {/* <WelcomeToast /> */}
+              </main>
+              <Footer />
+            </CartProvider>
+          {/* </ShopifyAuthProvider> */}
         </ThemeProvider>
       </body>
     </html>

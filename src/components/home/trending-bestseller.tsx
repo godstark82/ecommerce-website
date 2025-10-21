@@ -72,11 +72,11 @@ export default async function TrendingBestSellers() {
                     product={product}
                     showRank={true}
                     rank={index + 1}
-                    showType={true}
-                    type="trending"
-                    showRating={true}
-                    rating={4.5}
-                    variant="compact"
+                    // showType={true}
+                    // type="trending"
+                    // showRating={true}
+                    // rating={4.5}
+                    // variant="compact"
                   />
                 ))}
               </div>
@@ -97,13 +97,6 @@ export default async function TrendingBestSellers() {
                     product={product}
                     showRank={true}
                     rank={index + 1}
-                    showType={true}
-                    type="bestseller"
-                    showRating={true}
-                    rating={4.6}
-                    showSalesCount={true}
-                    salesCount={Math.floor(Math.random() * 2000) + 500}
-                    variant="compact"
                   />
                 ))}
               </div>

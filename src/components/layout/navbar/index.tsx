@@ -20,14 +20,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navigation = [
-    { name: 'Home', href: '/' },
-    { name: 'Collections', href: '/collections' },
-    { name: 'Products', href: '/products' },
-    { name: 'About', href: '/about' },
-    { name: 'Contact', href: '/contact' },
-  ];
-
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
         ? 'bg-white/95 backdrop-blur-md shadow-lg dark:bg-gray-900/95'
@@ -44,23 +36,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 hover:text-blue-600 dark:hover:text-blue-400 ${pathname === item.href
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300'
-                  }`}
-              >
-                {item.name}
-                {pathname === item.href && (
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
-                )}
-              </Link>
-            ))}
-          </div>
+          
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
@@ -94,19 +70,7 @@ export default function Navbar() {
         <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           } overflow-hidden`}>
           <div className="space-y-1 py-4 border-t border-gray-200 dark:border-gray-700">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${pathname === item.href
-                    ? 'text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-900/20'
-                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800'
-                  }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+            
           </div>
         </div>
       </div>
